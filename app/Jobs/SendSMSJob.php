@@ -45,7 +45,7 @@ class SendSMSJob implements ShouldQueue
     public function handle()
     {
         if ($this->repeat == 0) {
-            Outbox::create(['DestinationNumber' => $this->phone_number, 'TextDecoded' => $this->sms_content, 'CreatorID' => $this->CreatorId]);
+            Outbox::create(['DestinationNumber' => $this->phone_number, 'TextDecoded' => $this->sms_content, 'CreatorID' => $this->CreatorID]);
             ScheduledSms::findOrFail($this->id)->delete();
         } else {
             Outbox::create(['DestinationNumber' => $this->phone_number, 'TextDecoded' => $this->sms_content, 'CreatorID' => $this->CreatorID]);

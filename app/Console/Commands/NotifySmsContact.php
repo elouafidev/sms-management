@@ -56,7 +56,7 @@ class NotifySmsContact extends Command
         if ($scheduledSmses !== null) {
             //Get all scheduledSmses that their dispatch date is due
             $scheduledSmses->where('day', $now_day)->where('time', $now_hour)->each(function($scheduledSms) {
-                if($scheduledSms->sent_at == null){
+                if($scheduledSms->sent_at == null || $scheduledSms->repeat == 0){
                     \dispatch(new SendSMSJob(
                         $scheduledSms->id, 
                         $scheduledSms->phone_number, 
@@ -68,6 +68,8 @@ class NotifySmsContact extends Command
                     $scheduledSms->sent_at = Carbon::now();
                     $scheduledSms->save();
                 }
+
+                echo "[" . date('d-m-Y H:m:i', time()) . "] success run crontab : execute ScheduledSms with id = " . $scheduledSms->id;
             });
         }
     }
