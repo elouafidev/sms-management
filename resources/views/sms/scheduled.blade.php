@@ -2,9 +2,7 @@
 
 @extends('layouts.app')
 
-@section('page-title')
-   Penjadwalan SMS
-@endsection
+@section('page-title', 'Penjadwalan SMS')
 
 @section('css')
    
@@ -12,10 +10,9 @@
 
 @section('content')
 <div class="container">
-   <div class="row justify-content-center">
+   <div class="row justify-content-center mb-4">
       <div class="col-md-8">
          <h2><strong>@yield('page-title')</strong></h2>
-         <button type="button" class="btn btn-light float-right">Daftar SMS Terjadwal</button>
       </div>
    </div>
    <div class="row justify-content-center">
@@ -42,7 +39,14 @@
                         <td>{{$sms->repeat ? app('PhpEmoji')->decode('\u2714') : app('PhpEmoji')->decode('\u274c') }}</td>
                         <td>{{$sms->day . " " . substr($sms->time, 0, -3)}}</td>
                         <td>{{$sms->created_at->diffForHumans()}}</td>
-                        <td><button type="button" class="btn btn-danger btn-sm">Delete</button></td>
+                        <td>
+                           <form action="{{route('sms.scheduled.delete')}}" method="post">
+                              @csrf
+                              <input type="hidden" name="id" value="{{$sms->id}}">
+                              <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                           </form>
+                           <a name="" id="" class="btn btn-primary btn-sm mt-1" href="{{route('sms.scheduled.edit', ['id' => $sms->id])}}" role="button">Edit</a>
+                        </td>
                      </tr>
                   @endforeach
                </tbody>

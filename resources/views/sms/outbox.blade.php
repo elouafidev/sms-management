@@ -39,7 +39,9 @@
                         <td>{{$outbox->TextDecoded}}</td>
                         <td>{{$outbox->Status}}</td>
                         <td>{{\Carbon\Carbon::createFromTimeStamp(strtotime($outbox->SendingDateTime))->diffForHumans()}}</td>
-                        <td><button type="button" class="btn btn-danger btn-sm">Delete</button></td>
+                        <td>
+                           <a name="" id="" class="btn btn-danger btn-sm" href="{{route('sms.outbox.delete', ['id' => $outbox->ID])}}" role="button">Delete</a>
+                        </td>
                      </tr>
                   @endforeach
                </tbody>

@@ -38,7 +38,9 @@
                         <td>{{$inbox->TextDecoded}}</td>
                         <td>{{\Carbon\Carbon::createFromTimeStamp(strtotime($inbox->ReceivingDateTime))->diffForHumans()}}</td>
                         {{-- <td>{{$inbox->created_at->diffForHumans()}}</td> --}}
-                        <td><button type="button" class="btn btn-danger btn-sm">Delete</button></td>
+                        <td>
+                           <a name="" id="" class="btn btn-danger btn-sm" href="{{route('sms.inbox.delete', ['id' => $inbox->ID])}}" role="button">Delete</a>
+                        </td>
                      </tr>
                   @endforeach
                </tbody>

@@ -2,9 +2,7 @@
 
 @extends('layouts.app')
 
-@section('page-title')
-   SMS Terkirim
-@endsection
+@section('page-title', 'SMS Terkirim')
 
 @section('css')
    
@@ -40,7 +38,9 @@
                         <td>{{$sentItem->TextDecoded}}</td>
                         <td>{{$sentItem->Status}}</td>
                         {{-- <td>{{$inbox->created_at->diffForHumans()}}</td> --}}
-                        <td><button type="button" class="btn btn-danger btn-sm">Delete</button></td>
+                        <td>
+                           <a name="" id="" class="btn btn-danger btn-sm" href="{{route('sms.sent.delete', ['id' => $sentItem])}}" role="button">Delete</a>
+                        </td>
                      </tr>
                   @endforeach
                </tbody>
