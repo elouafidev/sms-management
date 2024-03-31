@@ -2,10 +2,10 @@
 
 @extends('layouts.app')
 
-@section('page-title', 'SMS Terkirim')
+@section('page-title', __("SMS Sent"))
 
 @section('css')
-   
+
 @endsection
 
 @section('content')
@@ -22,9 +22,9 @@
                <thead>
                   <tr>
                      <th scope="col">#</th>
-                     <th scope="col">Waktu Kirim</th>
-                     <th scope="col">Tujuan</th>
-                     <th scope="col">Isi</th>
+                     <th scope="col">{{__("Delivery Time")}}</th>
+                     <th scope="col">{{__("Destination")}}</th>
+                     <th scope="col">{{__("they")}}</th>
                      <th scope="col">Status</th>
                      <th scope="col"></th>
                   </tr>

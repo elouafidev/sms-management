@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('page-title')
-    SMS Sekarang
+    {{__("Text Now")}}
 @endsection
 
 @section('content')
@@ -28,16 +28,16 @@
            <form action="{{route('sms.store')}}" method="post">
             @csrf
                <div class="form-group">
-                  <label for="phone_number">Nomor Handphone</label>
+                  <label for="phone_number">{{__("phone number")}}</label>
                   <input type="text"
                      class="form-control" name="phone_number" id="phone_number" aria-describedby="helpId" placeholder="081234567891">
                   <small id="helpId" class="form-text text-muted"></small>
                </div>
                <div class="form-group">
-                  <label for="sms_content">Isi SMS</label>
+                  <label for="sms_content">{{__("Contents of SMS")}}</label>
                   <textarea class="form-control" name="sms_content" id="sms_content" rows="3"></textarea>
                </div>
-               <button type="submit" class="btn btn-primary">Kirim</button>
+           <button type="submit" class="btn btn-primary">{{__("Send")}}</button>
            </form>
        </div>
    </div>

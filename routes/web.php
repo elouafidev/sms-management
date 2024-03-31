@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers;
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,33 +14,50 @@
 |
 */
 
+
 Route::get('/', function () {
-    
-    return view('welcome');
+    return \Illuminate\Support\Facades\Redirect::route('home');
 });
 
-Auth::routes();
+Auth::routes([
+    'register' => false, // Registration Routes...
+    'reset' => false, // Password Reset Routes...
+    'verify' => false, // Email Verification Routes...
+]);
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/contact', 'ContactController@index')->name('contact.index');
+Route::get('/home', [Controllers\HomeController::class,'index'])->name('home');
+Route::get('/contact', [Controllers\ContactController::class,'index'])->name('contact.index');
 
 Route::group(['prefix' => 'phone'], function () {
-    Route::get('/', 'PhoneController@index')->name('phone.index');
+    Route::get('/', [Controllers\PhoneController::class,'index'])->name('phone.index');
 });
 
 Route::group(['prefix' => '/sms'], function () {
-    Route::get('/direct', 'SmsController@index')->name('sms.index'); 
-    Route::post('/send', 'SmsController@store')->name('sms.store'); 
-    Route::get('/schedule', 'SmsController@schedule')->name('sms.schedule');
-    Route::post('/schedule', 'SmsController@scheduleStore')->name('sms.scheduleStore');
-    Route::get('/scheduled', 'ScheduledSmsController@index')->name('sms.scheduled');
-    Route::post('/scheduled/delete', 'ScheduledSmsController@delete')->name('sms.scheduled.delete');
-    Route::get('/scheduled/{id}/edit', 'ScheduledSmsController@edit')->name('sms.scheduled.edit');
-    Route::post('/scheduled/update', 'ScheduledSmsController@update')->name('sms.scheduled.update');
-    Route::get('/inbox', 'InboxController@index')->name('sms.inbox');
-    Route::get('/inbox/{id}/delete', 'InboxController@delete')->name('sms.inbox.delete');
-    Route::get('/outbox', 'OutboxController@index')->name('sms.outbox');
-    Route::get('/outbox/{id}/delete', 'OutboxController@delete')->name('sms.outbox.delete');
-    Route::get('/sms-sent', 'SentController@index')->name('sms.sent');
-    Route::get('/sms-sent/{id}/delete', 'SentController@delete')->name('sms.sent.delete');
+    Route::get('/direct', [Controllers\SmsController::class,'index'])->name('sms.index');
+    Route::post('/send', [Controllers\SmsController::class,'store'])->name('sms.store');
+    Route::get('/schedule', [Controllers\SmsController::class,'schedule'])->name('sms.schedule');
+    Route::post('/schedule', [Controllers\SmsController::class,'scheduleStore'])->name('sms.scheduleStore');
+    Route::get('/scheduled', [Controllers\ScheduledSmsController::class,'index'])->name('sms.scheduled');
+    Route::post('/scheduled/delete', [Controllers\ScheduledSmsController::class,'delete'])->name('sms.scheduled.delete');
+    Route::get('/scheduled/{id}/edit', [Controllers\ScheduledSmsController::class,'edit'])->name('sms.scheduled.edit');
+    Route::post('/scheduled/update', [Controllers\ScheduledSmsController::class,'update'])->name('sms.scheduled.update');
+    Route::get('/inbox', [Controllers\InboxController::class,'index'])->name('sms.inbox');
+    Route::get('/inbox/{id}/delete', [Controllers\InboxController::class,'delete'])->name('sms.inbox.delete');
+    Route::get('/outbox', [Controllers\OutboxController::class,'index'])->name('sms.outbox');
+    Route::get('/outbox/{id}/delete', [Controllers\OutboxController::class,'delete'])->name('sms.outbox.delete');
+    Route::get('/sms-sent', [Controllers\SentController::class,'index'])->name('sms.sent');
+    Route::get('/sms-sent/{id}/delete', [Controllers\SentController::class,'delete'])->name('sms.sent.delete');
 });
+Route::group([
+    'prefix' => 'Settings',
+    'as' => 'settings.',
+], function () {
+    route::group([
+        'prefix' => 'Api',
+        'as' => 'api.',
+    ],function (){
+        Route::get('/', [Controllers\Settings\ApiController::class, 'index'])->name('index');
+        Route::post('/', [Controllers\Settings\ApiController::class, 'store']);
+    });
+});
+

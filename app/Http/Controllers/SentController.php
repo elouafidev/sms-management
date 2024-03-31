@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Alert;
-use App\SentItem;
+use App\Models\SentItem;
 
 class SentController extends Controller
 {
@@ -17,6 +17,6 @@ class SentController extends Controller
         SentItem::findOrFail($id)->delete();
         Alert::success('Sukses Dihapus', 'SMS Masuk Telah Dihapus');
 
-        return redirect($request->header('referer', $default = route('sms.sent'))); 
+        return redirect($request->header('referer', $default = route('sms.sent')));
     }
 }

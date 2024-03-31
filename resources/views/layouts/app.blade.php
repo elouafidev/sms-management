@@ -7,9 +7,9 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{asset("apple-touch-icon.png")}}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{asset("favicon-32x32.png")}}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{asset("favicon-16x16.png")}}">
     <link rel="manifest" href="/site.webmanifest">
 
     <title>{{ config('app.name', 'SMS Scheduler') }}</title>
@@ -40,7 +40,7 @@
     <style>
         @yield('css');
     </style>
-    
+
 </head>
 <body>
     <div id="app">
@@ -52,9 +52,9 @@
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-            
+
                 @include('layouts._navbar')
-            
+
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">

@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Outbox;
-use App\ScheduledSms;
+use App\Models\Outbox;
+use App\Models\ScheduledSms;
 Use Alert;
 
 class SmsController extends Controller
@@ -17,13 +17,13 @@ class SmsController extends Controller
     public function store(Request $request){
         $phone_number = $request->phone_number;
         $sms_content = $request->sms_content;
-        
+
         $CreatorID = Auth::id();
 
         // sending sms directly
         $new_direct_outbox = Outbox::create(['DestinationNumber' => $phone_number, 'TextDecoded' => $sms_content, 'CreatorID' => $CreatorID]);
 
-        Alert::success('Sukses di Input', 'SMS akan segera dikirim');
+        Alert::success(__('Success in Input'), __('SMS will be sent soon'));
         return redirect()->route('sms.inbox')->with('status', 'Success Sending');
     }
 
@@ -40,10 +40,10 @@ class SmsController extends Controller
         // pick day and hour scheduling sms
         $day = explode(' ', $request->date)[0];
         $time = explode(' ', $request->date)[1];
-        
+
         ScheduledSms::create([
-            'phone_number' => $phone_number, 
-            'sms_content' => $sms_content, 
+            'phone_number' => $phone_number,
+            'sms_content' => $sms_content,
             'day' => $day,
             'time' => $time,
             'repeat' => $repeat,

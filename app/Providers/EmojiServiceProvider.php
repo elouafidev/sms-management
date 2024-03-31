@@ -2,14 +2,14 @@
 
 namespace App\Providers;
 
-use App\Libraries\Tombel\PhpEmoji\PhpEmoji;
+use App\Libraries\Tombel\Phpemoji\PhpEmoji;
 use Illuminate\Support\ServiceProvider;
 
 class EmojiServiceProvider extends ServiceProvider
 {
 
     protected $emoji;
-    
+
     /**
      * Register services.
      *

@@ -2,9 +2,9 @@
 
 namespace App\Console\Commands;
 
+use App\Models\ScheduledSms;
 use Illuminate\Console\Command;
 use Carbon\Carbon;
-use App\ScheduledSms;
 use App\Jobs\SendSMSJob;
 
 class NotifySmsContact extends Command
@@ -44,7 +44,7 @@ class NotifySmsContact extends Command
         // $ids = ScheduledSms::all();
         // $ids->map(function ($item, $key) {
         //     ScheduledSms::destroy($item->id);
-        //     return "ScheduledSms with id $item->id deleted"; 
+        //     return "ScheduledSms with id $item->id deleted";
         // });
 
         // echo "notify:sms-contact done operate\n\n";
@@ -58,13 +58,13 @@ class NotifySmsContact extends Command
             $scheduledSmses->where('day', $now_day)->where('time', $now_hour)->each(function($scheduledSms) {
                 if($scheduledSms->sent_at == null || $scheduledSms->repeat == 0){
                     \dispatch(new SendSMSJob(
-                        $scheduledSms->id, 
-                        $scheduledSms->phone_number, 
-                        $scheduledSms->sms_content, 
-                        $scheduledSms->CreatorID, 
+                        $scheduledSms->id,
+                        $scheduledSms->phone_number,
+                        $scheduledSms->sms_content,
+                        $scheduledSms->CreatorID,
                         $scheduledSms->repeat)
                     );
-                    
+
                     $scheduledSms->sent_at = Carbon::now();
                     $scheduledSms->save();
                 }

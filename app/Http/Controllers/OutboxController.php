@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Alert;
-use App\Outbox;
+
+use App\Models\Outbox;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class OutboxController extends Controller
 {
@@ -14,14 +15,14 @@ class OutboxController extends Controller
     }
 
     public function delete($id){
-        $outbox = Outbox::findOrFail($id);    
+        $outbox = Outbox::findOrFail($id);
         if ($outbox == null) {
-            Alert::danger('SMS Keluar', 'Tidak Ditemukan');
+            Alert::danger('Outgoing SMS', 'Not found');
             return \redirect()->route('sms.outbox');
         }
-        
+
         $outbox->delete();
-        Alert::success('Sukses Dihapus', 'SMS Keluar Berhasil Dihapus');
+        Alert::success('Successfully Removed', 'Outgoing SMS Deleted Successfully');
         return \redirect()->route('sms.outbox');
     }
 }

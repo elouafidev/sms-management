@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 Use Alert;
-use App\ScheduledSms;
+use App\Models\ScheduledSms;
 
 class ScheduledSmsController extends Controller
 {
@@ -25,7 +25,7 @@ class ScheduledSmsController extends Controller
     }
 
     public function edit(Request $request, $id){
-        
+
         $previously_page = $request->header('referer');
         $sms = ScheduledSms::findOrFail($id);
 
@@ -42,11 +42,11 @@ class ScheduledSmsController extends Controller
 
         $sms->day = explode(' ', $request->date)[0];
         $sms->time = explode(' ', $request->date)[1];
-        
+
         $sms->save();
 
         $previously_page = $request->prev_page;
-        
+
         $previously_page = ($previously_page !== null ) ? $request->prev_page : $request->header('referer');
 
         Alert::success('Sukses Diubah', 'SMS Terjadwal Telah DiUbah');

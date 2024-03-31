@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Alert;
-use App\Inbox;
+use App\Models\Inbox;
 
 class InboxController extends Controller
 {
@@ -16,7 +16,7 @@ class InboxController extends Controller
     public function delete(Request $request, $id){
         Inbox::findOrFail($id)->delete();
 
-        Alert::success('Sukses Dihapus', 'SMS Masuk Telah Dihapus');
+        Alert::success(__('Successfully Removed'), __('Incoming SMS Has Been Deleted'));
 
         $default = route('sms.inbox');
         return redirect($request->header('referer', $default));
