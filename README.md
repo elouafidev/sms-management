@@ -2,7 +2,7 @@
     <img src="https://www.whatcounts.com/wp-content/uploads/2018/06/SMS-Marketing-FAQs.jpg" alt="SMS Management"/>
 </p>
 
-# SMS Management
+# SMS Management  & SMS API 
 
 SMS Management is free and open source SMS Management software with Gammu as core service.
 
@@ -59,6 +59,34 @@ $ php artisan db:seed --class="adminSeeder"
 ## Deployment
 
 Add additional notes about how to deploy this on a live system
+
+### API Document 
+```
+url local : http://example.com:8000/api/latest
+
+parameters :
+- access_key  : token for authentication
+- request : request you want send to  (send - check_status )
+- phone : The phone number to which you want to send SMS
+- content : SMS content
+
+Response (json):
+- success (boolean): true or false
+- data : Get the result of the request if success is true
+- error : : Get the error of the request if success is false
+
+example :
+{ 
+    Success  : // true OR false
+    Data : "send" // result for request
+    error : {
+        'code' :  // code error {202 ,404,…}
+        'type' : //‘ missing_access_key’,’ missing_access_key’,’ bad_request’,…
+        'info' : // Error information
+    },
+}
+
+```
 
 ## Built With
 
