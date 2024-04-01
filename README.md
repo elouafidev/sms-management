@@ -35,7 +35,7 @@ Another OS : [here](https://wammu.eu/download/gammu/)
 
 
 ```
-$ cd ~ && git clone https://github.com/arifsetyo21/sms-management.git
+$ cd ~ && git clone https://github.com/elouafidev/sms-management.git
 
 $ cd sms-management
 
